@@ -1,0 +1,15 @@
+{
+  "name": "employee-rest-api",
+  "version": "1.0.0",
+  "description": "REST API for employee CRUD operations",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["express", "rest-api", "crud"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

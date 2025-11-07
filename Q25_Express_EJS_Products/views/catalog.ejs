@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .subtitle {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 20px;
+        }
+        .product-name {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        .product-brand {
+            color: #667eea;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .product-price {
+            color: #4CAF50;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .product-category {
+            display: inline-block;
+            background: #f0f0f0;
+            color: #555;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        .stock-status {
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: 600;
+            text-align: center;
+        }
+        .stock-status.in-stock {
+            background: #4CAF50;
+            color: white;
+        }
+        .stock-status.out-of-stock {
+            background: #f44336;
+            color: white;
+        }
+        .no-products {
+            text-align: center;
+            color: white;
+            padding: 50px;
+            font-size: 1.2rem;
+        }
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .back-btn:hover {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><%= title %></h1>
+        <p class="subtitle">Total Products: <%= totalProducts %></p>
+        
+        <% if (products.length > 0) { %>
+            <div class="product-grid">
+                <% products.forEach(function(product) { %>
+                    <div class="product-card">
+                        <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image">
+                        <div class="product-info">
+                            <h2 class="product-name"><%= product.name %></h2>
+                            <p class="product-brand"><%= product.brand %></p>
+                            <p class="product-description"><%= product.description %></p>
+                            <span class="product-category"><%= product.category %></span>
+                            <p class="product-price">$<%= product.price.toFixed(2) %></p>
+                            <% if (product.inStock) { %>
+                                <div class="stock-status in-stock">✓ In Stock</div>
+                            <% } else { %>
+                                <div class="stock-status out-of-stock">✗ Out of Stock</div>
+                            <% } %>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        <% } else { %>
+            <div class="no-products">
+                No products found in this category.
+                <br><br>
+                <a href="/" class="back-btn">← Back to All Products</a>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

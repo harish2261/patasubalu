@@ -1,0 +1,12 @@
+{
+  "name": "node-static-server",
+  "version": "1.0.0",
+  "description": "Node.js application serving static HTML using http module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["nodejs", "http", "static-server"],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "node-file-system",
+  "version": "1.0.0",
+  "description": "Node.js program demonstrating fs module operations",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["nodejs", "fs", "file-system"],
+  "author": "",
+  "license": "ISC"
+}

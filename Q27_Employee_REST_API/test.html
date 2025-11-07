@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee API Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #388e3c;
+        }
+
+        .btn-delete {
+            background: #f44336;
+            color: white;
+            padding: 8px 16px;
+            font-size: 12px;
+        }
+
+        .btn-delete:hover {
+            background: #d32f2f;
+        }
+
+        .btn-edit {
+            background: #ff9800;
+            color: white;
+            padding: 8px 16px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+
+        .btn-edit:hover {
+            background: #f57c00;
+        }
+
+        .employee-list {
+            margin-top: 20px;
+        }
+
+        .employee-item {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+        }
+
+        .employee-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .employee-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .employee-meta {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .employee-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .badge-dept {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-salary {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        #updateForm {
+            display: none;
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        #updateForm h3 {
+            color: #e65100;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👥 Employee Management System</h1>
+
+        <!-- Add Employee Form -->
+        <div class="card">
+            <h2>Add New Employee</h2>
+            <div id="message"></div>
+            <form id="employeeForm">
+                <div class="form-group">
+                    <label>Name *</label>
+                    <input type="text" id="name" required placeholder="Enter employee name">
+                </div>
+
+                <div class="form-group">
+                    <label>Position *</label>
+                    <input type="text" id="position" required placeholder="Enter position">
+                </div>
+
+                <div class="form-group">
+                    <label>Department *</label>
+                    <select id="department" required>
+                        <option value="">Select Department</option>
+                        <option value="IT">IT</option>
+                        <option value="HR">HR</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Operations">Operations</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Salary *</label>
+                    <input type="number" id="salary" required placeholder="Enter salary" min="0" step="1000">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add Employee</button>
+                <button type="button" class="btn btn-success" onclick="loadEmployees()">Refresh List</button>
+            </form>
+        </div>
+
+        <!-- Update Employee Form (Hidden by default) -->
+        <div id="updateForm" class="card">
+            <h3>Update Employee</h3>
+            <div id="updateMessage"></div>
+            <input type="hidden" id="updateId">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" id="updateName" placeholder="Enter new name">
+            </div>
+            <div class="form-group">
+                <label>Position</label>
+                <input type="text" id="updatePosition" placeholder="Enter new position">
+            </div>
+            <div class="form-group">
+                <label>Department</label>
+                <select id="updateDepartment">
+                    <option value="">Select Department</option>
+                    <option value="IT">IT</option>
+                    <option value="HR">HR</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Operations">Operations</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Salary</label>
+                <input type="number" id="updateSalary" placeholder="Enter new salary" step="1000">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="updateEmployee()">Update Employee</button>
+            <button type="button" class="btn" onclick="cancelUpdate()" style="background: #999; color: white;">Cancel</button>
+        </div>
+
+        <!-- Employee List -->
+        <div class="card">
+            <h2>All Employees</h2>
+            <div id="employeeList" class="employee-list">
+                <p style="text-align: center; color: #999;">Loading employees...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api/employees';
+
+        // Load employees on page load
+        window.onload = function() {
+            loadEmployees();
+        };
+
+        // Add employee
+        document.getElementById('employeeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const employeeData = {
+                name: document.getElementById('name').value,
+                position: document.getElementById('position').value,
+                department: document.getElementById('department').value,
+                salary: parseInt(document.getElementById('salary').value)
+            };
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(employeeData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showMessage('✅ Employee added successfully!', 'success');
+                    document.getElementById('employeeForm').reset();
+                    loadEmployees();
+                } else {
+                    showMessage('❌ ' + data.message, 'error');
+                }
+            } catch (error) {
+                showMessage('❌ Error: Make sure the server is running on port 3000', 'error');
+            }
+        });
+
+        // Load all employees
+        async function loadEmployees() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+
+                const employeeList = document.getElementById('employeeList');
+
+                if (data.success && data.data.length > 0) {
+                    employeeList.innerHTML = data.data.map((emp, index) => `
+                        <div class="employee-item">
+                            <div class="employee-header">
+                                <div class="employee-name">
+                                    ${index + 1}. ${emp.name}
+                                    <span class="badge badge-dept">${emp.department}</span>
+                                </div>
+                            </div>
+                            <div class="employee-meta">
+                                <strong>Position:</strong> ${emp.position}
+                            </div>
+                            <div class="employee-meta">
+                                <strong>Salary:</strong> 
+                                <span class="badge badge-salary">$${emp.salary.toLocaleString()}</span>
+                            </div>
+                            <div style="font-size: 12px; color: #999; margin-top: 5px;">ID: ${emp.id}</div>
+                            <div class="employee-actions">
+                                <button class="btn btn-edit" onclick='showUpdateForm(${emp.id}, "${emp.name.replace(/'/g, "\\\'")}", "${emp.position.replace(/'/g, "\\\'")}", "${emp.department}", ${emp.salary})'>
+                                    ✏️ Edit
+                                </button>
+                                <button class="btn btn-delete" onclick='deleteEmployee(${emp.id}, "${emp.name.replace(/'/g, "\\\'")}")'>
+                                    🗑️ Delete
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    employeeList.innerHTML = '<div class="empty-state"><h3>No employees found</h3><p>Add your first employee to get started!</p></div>';
+                }
+            } catch (error) {
+                document.getElementById('employeeList').innerHTML = 
+                    '<p style="text-align: center; color: #f44336;">Error loading employees. Make sure the server is running on port 3000.</p>';
+            }
+        }
+
+        // Show update form
+        function showUpdateForm(id, name, position, department, salary) {
+            document.getElementById('updateForm').style.display = 'block';
+            document.getElementById('updateId').value = id;
+            document.getElementById('updateName').value = name;
+            document.getElementById('updatePosition').value = position;
+            document.getElementById('updateDepartment').value = department;
+            document.getElementById('updateSalary').value = salary;
+            document.getElementById('updateForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Cancel update
+        function cancelUpdate() {
+            document.getElementById('updateForm').style.display = 'none';
+            document.getElementById('updateMessage').innerHTML = '';
+        }
+
+        // Update employee
+        async function updateEmployee() {
+            const id = document.getElementById('updateId').value;
+            const employeeData = {
+                name: document.getElementById('updateName').value,
+                position: document.getElementById('updatePosition').value,
+                department: document.getElementById('updateDepartment').value,
+                salary: parseInt(document.getElementById('updateSalary').value)
+            };
+
+            try {
+                const response = await fetch(`${API_URL}/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(employeeData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showUpdateMessage('✅ Employee updated successfully!', 'success');
+                    setTimeout(() => {
+                        cancelUpdate();
+                        loadEmployees();
+                    }, 1000);
+                } else {
+                    showUpdateMessage('❌ ' + data.message, 'error');
+                }
+            } catch (error) {
+                showUpdateMessage('❌ Error updating employee', 'error');
+            }
+        }
+
+        // Delete employee
+        async function deleteEmployee(id, name) {
+            if (!confirm(`Are you sure you want to delete ${name}?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/${id}`, {
+                    method: 'DELETE'
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showMessage('✅ Employee deleted successfully!', 'success');
+                    loadEmployees();
+                } else {
+                    showMessage('❌ ' + data.message, 'error');
+                }
+            } catch (error) {
+                showMessage('❌ Error deleting employee', 'error');
+            }
+        }
+
+        // Show message
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = `<div class="message ${type}">${text}</div>`;
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 3000);
+        }
+
+        // Show update message
+        function showUpdateMessage(text, type) {
+            const messageDiv = document.getElementById('updateMessage');
+            messageDiv.innerHTML = `<div class="message ${type}">${text}</div>`;
+        }
+    </script>
+</body>
+</html>

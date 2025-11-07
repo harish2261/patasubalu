@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.js Static Server</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+        .success {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 3px 8px;
+            border-radius: 3px;
+            color: #e83e8c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Welcome to Node.js HTTP Server!</h1>
+        <p>This HTML file is being served by a Node.js server using the <code>http</code> module.</p>
+        <p>The server reads this static HTML file and sends it as a response to client requests.</p>
+        <div class="success">
+            ✅ Server is running successfully on port 3000
+        </div>
+        <p style="margin-top: 30px;">
+            <strong>Technology Stack:</strong><br>
+            Node.js | HTTP Module | File System (fs)
+        </p>
+    </div>
+</body>
+</html>

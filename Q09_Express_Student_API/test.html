@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student API Tester</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #4caf50;
+            color: white;
+        }
+
+        .student-list {
+            margin-top: 20px;
+        }
+
+        .student-item {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+        }
+
+        .student-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .student-details {
+            flex: 1;
+        }
+
+        .student-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .student-meta {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .badge-cs {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-it {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .badge-ec {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .badge-me {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Student Management System</h1>
+
+        <!-- Add Student Form -->
+        <div class="card">
+            <h2>Add New Student</h2>
+            <div id="message"></div>
+            <form id="studentForm">
+                <div class="form-group">
+                    <label>Name *</label>
+                    <input type="text" id="name" required placeholder="Enter student name">
+                </div>
+
+                <div class="form-group">
+                    <label>Roll Number *</label>
+                    <input type="text" id="rollNumber" required placeholder="Enter roll number">
+                </div>
+
+                <div class="form-group">
+                    <label>Department *</label>
+                    <select id="department" required>
+                        <option value="">Select Department</option>
+                        <option value="Computer Science">Computer Science</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Mechanical">Mechanical</option>
+                        <option value="Civil">Civil</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Year *</label>
+                    <select id="year" required>
+                        <option value="">Select Year</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add Student</button>
+                <button type="button" class="btn btn-success" onclick="loadStudents()">Refresh List</button>
+            </form>
+        </div>
+
+        <!-- Student List -->
+        <div class="card">
+            <h2>All Students</h2>
+            <div id="studentList" class="student-list">
+                <p style="text-align: center; color: #999;">Loading students...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/students';
+
+        // Load students on page load
+        window.onload = function() {
+            loadStudents();
+        };
+
+        // Add student
+        document.getElementById('studentForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const studentData = {
+                name: document.getElementById('name').value,
+                rollNumber: document.getElementById('rollNumber').value,
+                department: document.getElementById('department').value,
+                year: parseInt(document.getElementById('year').value)
+            };
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(studentData)
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showMessage('✅ Student added successfully!', 'success');
+                    document.getElementById('studentForm').reset();
+                    loadStudents();
+                } else {
+                    showMessage('❌ ' + data.message, 'error');
+                }
+            } catch (error) {
+                showMessage('❌ Error: Make sure the server is running on port 3000', 'error');
+            }
+        });
+
+        // Load all students
+        async function loadStudents() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+
+                const studentList = document.getElementById('studentList');
+
+                if (data.success && data.data.length > 0) {
+                    studentList.innerHTML = data.data.map((student, index) => {
+                        const deptClass = student.department.toLowerCase().replace(/\s+/g, '-');
+                        return `
+                            <div class="student-item">
+                                <div class="student-info">
+                                    <div class="student-details">
+                                        <div class="student-name">
+                                            ${index + 1}. ${student.name}
+                                            <span class="badge badge-${getDeptBadgeClass(student.department)}">
+                                                ${student.department}
+                                            </span>
+                                        </div>
+                                        <div class="student-meta">
+                                            Roll: ${student.rollNumber} | Year: ${student.year} | ID: ${student.id}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                } else {
+                    studentList.innerHTML = '<p style="text-align: center; color: #999;">No students found. Add your first student!</p>';
+                }
+            } catch (error) {
+                document.getElementById('studentList').innerHTML = 
+                    '<p style="text-align: center; color: #f44336;">Error loading students. Make sure the server is running.</p>';
+            }
+        }
+
+        // Get badge class based on department
+        function getDeptBadgeClass(dept) {
+            if (dept.includes('Computer')) return 'cs';
+            if (dept.includes('Information')) return 'it';
+            if (dept.includes('Electronics')) return 'ec';
+            if (dept.includes('Mechanical')) return 'me';
+            return 'cs';
+        }
+
+        // Show message
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.innerHTML = `<div class="message ${type}">${text}</div>`;
+            setTimeout(() => {
+                messageDiv.innerHTML = '';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

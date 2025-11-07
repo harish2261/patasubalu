@@ -1,0 +1,13 @@
+{
+  "name": "react-counter",
+  "version": "1.0.0",
+  "description": "React Counter with useState Hook",
+  "main": "App.js",
+  "scripts": {
+    "start": "echo 'Open index.html in a browser to run this app'"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}

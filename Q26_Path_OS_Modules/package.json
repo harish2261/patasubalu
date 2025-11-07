@@ -1,0 +1,12 @@
+{
+  "name": "path-os-modules",
+  "version": "1.0.0",
+  "description": "Node.js program demonstrating path and os modules",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["nodejs", "path", "os"],
+  "author": "",
+  "license": "ISC"
+}

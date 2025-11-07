@@ -1,0 +1,15 @@
+{
+  "name": "mongodb-products-crud",
+  "version": "1.0.0",
+  "description": "CRUD operations on MongoDB products collection using Mongoose",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["mongodb", "mongoose", "crud", "products"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^8.0.0"
+  }
+}

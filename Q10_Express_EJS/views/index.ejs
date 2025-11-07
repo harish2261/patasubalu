@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 30px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .nav-links {
+            margin-bottom: 30px;
+        }
+        .nav-links a {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            transition: background 0.3s;
+        }
+        .nav-links a:hover {
+            background: #5568d3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        thead {
+            background: #667eea;
+            color: white;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        tbody tr:hover {
+            background: #f5f5f5;
+        }
+        .badge {
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .badge.in-stock {
+            background: #4CAF50;
+            color: white;
+        }
+        .badge.out-of-stock {
+            background: #f44336;
+            color: white;
+        }
+        .price {
+            color: #667eea;
+            font-weight: bold;
+        }
+        .no-items {
+            text-align: center;
+            padding: 50px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><%= title %></h1>
+        <p class="subtitle">Total Items: <%= totalItems %></p>
+        
+        <div class="nav-links">
+            <a href="/">All Products</a>
+            <a href="/in-stock">In Stock Only</a>
+        </div>
+        
+        <% if (items.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% items.forEach(function(item) { %>
+                        <tr>
+                            <td><%= item.id %></td>
+                            <td><%= item.name %></td>
+                            <td><%= item.category %></td>
+                            <td class="price">$<%= item.price.toFixed(2) %></td>
+                            <td>
+                                <% if (item.inStock) { %>
+                                    <span class="badge in-stock">In Stock</span>
+                                <% } else { %>
+                                    <span class="badge out-of-stock">Out of Stock</span>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <div class="no-items">
+                <h2>No items found</h2>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>

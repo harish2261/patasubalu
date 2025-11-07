@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    min-width: 400px;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.input-section {
+    margin-bottom: 20px;
+}
+
+input[type="number"] {
+    padding: 12px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    width: 60%;
+    margin-right: 10px;
+}
+
+button {
+    padding: 12px 30px;
+    font-size: 16px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #5568d3;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    min-height: 60px;
+}
+
+.result.prime {
+    background: #4CAF50;
+    color: white;
+}
+
+.result.even {
+    background: #2196F3;
+    color: white;
+}
+
+.result.odd {
+    background: #FF9800;
+    color: white;
+}
+
+.result.error {
+    background: #f44336;
+    color: white;
+}

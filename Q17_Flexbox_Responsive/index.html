@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Flexbox Layout</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Responsive Flexbox Layout</h1>
+        </header>
+        
+        <div class="columns">
+            <div class="column column-1">
+                <h2>Column 1</h2>
+                <p>This is the first column. On larger screens, columns are displayed side by side.</p>
+                <p>When the screen width drops below 768px, the layout automatically rearranges into rows.</p>
+            </div>
+            
+            <div class="column column-2">
+                <h2>Column 2</h2>
+                <p>This is the second column. Flexbox makes it easy to create responsive layouts.</p>
+                <p>Try resizing your browser window to see the layout change!</p>
+            </div>
+            
+            <div class="column column-3">
+                <h2>Column 3</h2>
+                <p>This is the third column. The columns automatically stack on smaller screens.</p>
+                <p>This provides an optimal viewing experience on mobile devices.</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Resize the browser window to see the responsive behavior!</p>
+        </footer>
+    </div>
+</body>
+</html>

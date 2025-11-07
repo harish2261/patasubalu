@@ -1,0 +1,3 @@
+Hello, this is sample content written to a file using Node.js fs module!
+This demonstrates file operations in Node.js.
+This line was appended later!
