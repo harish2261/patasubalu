@@ -1,4 +1,4 @@
-
+mysql://avnadmin:AVNS_i2AaD8rsugutvMwMpra@mysql-c1108d-gokulmicrosaas-4a1a.e.aivencloud.com:11264/defaultdb?ssl-mode=REQUIRED
 MYSQL_HOST=your-mysql-host.aivencloud.com
 
 
