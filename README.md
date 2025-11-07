@@ -1,0 +1,12 @@
+# MySQL Configuration (for Q11, Q28)
+MYSQL_HOST=your-mysql-host.aivencloud.com
+MYSQL_PORT=11264
+MYSQL_USER=avnadmin
+MYSQL_PASSWORD=your-mysql-password
+MYSQL_DATABASE=defaultdb
+
+# MongoDB Configuration (for Q12, Q13, Q15, Q29, Q30)
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/dbname?retryWrites=true&w=majority
+
+# Port Configuration
+PORT=3000
